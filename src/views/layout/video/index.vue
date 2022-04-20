@@ -1,5 +1,5 @@
 <template>
-  <div class="video-container">首页</div>
+  <div class="video-container">视频</div>
 </template>
 
 <script>

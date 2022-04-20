@@ -1,7 +1,13 @@
 <template>
   <div class="login-container">
     <!-- TAG：导航栏 -->
-    <van-nav-bar title="登录" class="page-nav-bar" />
+    <van-nav-bar
+      @click-left="$router.back()"
+      left-text="返回"
+      left-arrow
+      title="登录"
+      class="page-nav-bar"
+    />
 
     <!-- TAG：登录表单 -->
     <van-form @submit="onSubmit" ref="loginForm">

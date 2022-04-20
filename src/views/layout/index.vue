@@ -1,15 +1,11 @@
 <template>
   <div class="layout-container">
-    <!-- 子路由出口 -->
+    <!-- 路由出口 -->
     <router-view />
-    <!-- /子路由出口 -->
 
-    <!-- 标签导航栏 -->
-    <!--
-      route: 开启路由模式
-     -->
+    <!-- 底部标签栏：TabBar -->
     <van-tabbar class="layout-tabbar" route>
-      <van-tabbar-item to="/">
+      <van-tabbar-item to="/home">
         <i slot="icon" class="toutiao toutiao-shouye"></i>
         <span class="text">首页</span>
       </van-tabbar-item>
@@ -26,13 +22,12 @@
         <span class="text">我的</span>
       </van-tabbar-item>
     </van-tabbar>
-    <!-- /标签导航栏 -->
   </div>
 </template>
 
 <script>
 export default {
-  name: 'LayoutIndex',
+  name: 'LayoutPage',
   components: {},
   props: {},
   data () {

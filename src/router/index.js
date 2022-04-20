@@ -14,7 +14,30 @@ const routes = [
   {
     path: '/',
     name: 'Layout',
-    component: () => import('@/views/layout')
+    component: () => import('@/views/layout'),
+    redirect: '/home',
+    children: [
+      {
+        path: '/home',
+        name: 'Home',
+        component: () => import('@/views/layout/home')
+      },
+      {
+        path: '/my',
+        name: 'My',
+        component: () => import('@/views/layout/my')
+      },
+      {
+        path: '/qa',
+        name: 'Qa',
+        component: () => import('@/views/layout/qa')
+      },
+      {
+        path: '/video',
+        name: 'Video',
+        component: () => import('@/views/layout/video')
+      }
+    ]
   }
 ]
 
