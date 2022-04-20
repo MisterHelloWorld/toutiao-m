@@ -4,7 +4,13 @@ import request from '@/utils/request'
 // 登录请求
 export const login = (data) =>
   request({
-    url: '/v1_0/authorizations',
     method: 'POST',
+    url: '/v1_0/authorizations',
     data
+  })
+
+// 发送验证码请求
+export const sendSms = (mobile) =>
+  request({
+    url: `/v1_0/sms/codes/${mobile}`
   })

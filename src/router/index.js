@@ -10,6 +10,11 @@ const routes = [
     name: 'Login',
     // 路由懒加载
     component: () => import('@/views/login')
+  },
+  {
+    path: '/',
+    name: 'Layout',
+    component: () => import('@/views/layout')
   }
 ]
 
