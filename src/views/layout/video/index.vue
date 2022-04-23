@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'VideoPage',
+  name: 'VideoIndex',
   components: {},
   props: {},
   data () {

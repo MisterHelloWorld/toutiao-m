@@ -1,3 +1,4 @@
+// TODO:登录页面
 <template>
   <div class="login-container">
     <!-- TAG：导航栏 -->
@@ -125,13 +126,14 @@ export default {
       })
       try {
         // 随机模拟请求失败
-        if (Math.random() > 0.5) {
-          JSON.parse('随机模拟请求失败')
-        }
+        // if (Math.random() > 0.5) {
+        //   JSON.parse('随机模拟请求失败')
+        // }
         const res = await login(this.user)
-        console.log(res)
         this.setUser(res.data.data)
         this.$toast.success('登录成功！')
+        // 登录成功之后，回退到上一次的页面
+        this.$router.go(-1)
       } catch (error) {
         if (error.response && error.response.status === 400) {
           this.$toast.fail('手机号或验证码错误')
