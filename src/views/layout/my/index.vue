@@ -102,7 +102,7 @@ export default {
         const { data } = await getUserInfo()
         this.userInfo = data.data
       } catch (error) {
-        this.$toast('获取用户信息失败，请稍后重新！')
+        this.$toast('用户身份失效，请重新登录！')
       }
     }
   },

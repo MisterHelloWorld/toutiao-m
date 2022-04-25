@@ -21,7 +21,7 @@
         :key="channel.id"
         :title="channel.name"
       >
-        <!-- TAG：频道的文章列表组件 -->
+        <!-- TAG：频道对应的文章列表组件 -->
         <article-list :channel="channel" />
       </van-tab>
       <!-- 占位元素 -->
