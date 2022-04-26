@@ -27,25 +27,51 @@
       <!-- 占位元素 -->
       <div slot="nav-right" class="placeholder"></div>
       <!-- 右侧插槽：汉堡包菜单 -->
-      <div slot="nav-right" class="hamburger-btn">
+      <div
+        slot="nav-right"
+        class="hamburger-btn"
+        @click="isChannelEditShow = true"
+      >
         <i class="toutiao toutiao-gengduo"></i>
       </div>
     </van-tabs>
+    <!-- TAG：频道编辑弹出层 -->
+    <van-popup
+      class="edit-channel-popup"
+      v-model="isChannelEditShow"
+      closeable
+      close-icon-position="top-left"
+      position="bottom"
+      :style="{ height: '100%' }"
+    >
+      <!-- TAG：频道编辑组件 -->
+      <channel-edit
+        @onAddChannel="onAddChannel"
+        :myChannels="channels"
+        :active.sync="active"
+        :isChannelEditShow.sync="isChannelEditShow"
+        @deleteChannel="deleteChannel"
+      ></channel-edit>
+    </van-popup>
   </div>
 </template>
 
 <script>
 import { getUserChannels } from '@/api/user'
 import ArticleList from './components/article-list.vue'
+import ChannelEdit from './components/channel-edit.vue'
 export default {
   name: 'HomeIndex',
-  components: { ArticleList },
+  components: { ArticleList, ChannelEdit },
   props: {},
   data () {
     return {
-      // 频道列表
+      // 用户频道列表数据
       channels: [],
-      active: 0
+      // 频道标签高亮索引
+      active: 0,
+      // 频道编辑弹出层是否显示
+      isChannelEditShow: false
     }
   },
   computed: {},
@@ -63,6 +89,14 @@ export default {
       } catch (error) {
         this.$toast('获取用户频道失败！')
       }
+    },
+    // 添加频道时触发
+    onAddChannel (recommendChannel) {
+      this.channels.push(recommendChannel)
+    },
+    // 删除频道时触发
+    deleteChannel (index) {
+      this.channels.splice(index, 1)
     }
   }
 }
@@ -146,6 +180,9 @@ export default {
         background-size: contain;
       }
     }
+  }
+  .edit-channel-popup {
+    box-sizing: border-box;
   }
 }
 </style>

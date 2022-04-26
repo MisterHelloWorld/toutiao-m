@@ -35,7 +35,7 @@ export default {
   name: 'ArticleList',
   components: { ArticleItem },
   props: {
-    // 频道信息数据
+    // 用户频道列表数据
     channel: {
       type: Object,
       required: true
