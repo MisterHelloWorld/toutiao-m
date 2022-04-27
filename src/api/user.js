@@ -23,6 +23,7 @@ export const getUserInfo = () =>
 
 // XXX：获取用户自己的频道请求
 export const getUserChannels = () =>
+  // 该请求分两种情况，有token值，获取的是服务器端（增删后）的频道请求，无token值，获取的是服务器的固定频道
   request({
     url: '/v1_0/user/channels'
   })

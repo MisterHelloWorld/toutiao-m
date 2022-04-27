@@ -55,8 +55,14 @@
 </template>
 
 <script>
-import { getAllChannels } from '@/api/channel'
+import {
+  getAllChannels,
+  addUserChannel,
+  deleteUserChannel
+} from '@/api/channel'
 import { differenceBy } from 'lodash'
+import { mapState } from 'vuex'
+import { setItem } from '@/utils/storage'
 export default {
   name: 'ChannelEdit',
   components: {},
@@ -87,6 +93,8 @@ export default {
     }
   },
   computed: {
+    // 辅助函数映射vuex中state里的user变量（保存的是token）
+    ...mapState(['user']),
     // 推荐频道列表数据（依赖于用户频道数据改变而改变，实时更新）
     recommendChannels () {
       // 利用lodash的differenceBy方法将数组去重，即全部频道-我的频道
@@ -109,13 +117,28 @@ export default {
         this.$toast('获取全部频道失败')
       }
     },
-    // 添加频道时触发
-    onAddChannel (recommendChannel) {
+    // 添加频道功能
+    async onAddChannel (recommendChannel) {
       // 通过子传父技术将当前要添加的频道追加到用户频道中
       this.$emit('onAddChannel', recommendChannel)
+      if (this.user) {
+        // 如果是登录状态
+        try {
+          // 发起添加频道的请求，在服务器端添加频道
+          await addUserChannel({
+            id: recommendChannel.id, // 当前点击的频道id
+            seq: this.myChannels.length // 序号：当前用户频道列表的长度
+          })
+        } catch (error) {
+          this.$toast('添加频道失败！')
+        }
+      } else {
+        // 如果是未登录状态，把用户频道列表数据本地存储
+        setItem('TOUTIAO_CHANNELS', this.myChannels)
+      }
     },
     // 点击我的频道每一项时触发
-    onMyChannelClick (myChannel, index) {
+    async onMyChannelClick (myChannel, index) {
       if (this.isEdit) {
         //   如果白名单内包含当前点击的频道id，则代表有索引值，满足不等于-1的条件，不执行后续删除操作
         if (this.fixedChannels.indexOf(myChannel.id) !== -1) {
@@ -127,6 +150,18 @@ export default {
         }
         // 当处于编辑状态时，通过子传父将当前点击的频道删除
         this.$emit('deleteChannel', index)
+        // 如果是登录状态
+        if (this.user) {
+          try {
+            // 发起删除频道的请求，在服务器端删除频道
+            await deleteUserChannel(myChannel.id)
+          } catch (error) {
+            this.$toast('添加频道失败！')
+          }
+        } else {
+          // 如果是未登录状态，把用户频道列表数据本地存储
+          setItem('TOUTIAO_CHANNELS', this.myChannels)
+        }
       } else {
         // 当处于非编辑状态时，执行切换频道操作
         this.$emit('update:active', index)

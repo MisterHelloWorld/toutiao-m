@@ -60,6 +60,8 @@
 import { getUserChannels } from '@/api/user'
 import ArticleList from './components/article-list.vue'
 import ChannelEdit from './components/channel-edit.vue'
+import { mapState } from 'vuex'
+import { getItem } from '@/utils/storage'
 export default {
   name: 'HomeIndex',
   components: { ArticleList, ChannelEdit },
@@ -74,7 +76,10 @@ export default {
       isChannelEditShow: false
     }
   },
-  computed: {},
+  computed: {
+    // 辅助函数映射vuex中state里的user变量（保存的是token）
+    ...mapState(['user'])
+  },
   watch: {},
   created () {
     this.getUserChannels()
@@ -84,8 +89,14 @@ export default {
     // 获取用户频道并保存在channels
     async getUserChannels () {
       try {
+        // 无论是登录状态还是未登录状态，都发送获取用户频道请求
         const { data } = await getUserChannels()
+        // 未登录状态保存的是默认固定频道，登录状态保存的是服务器端获取的最新频道（增删过的频道）
         this.channels = data.data.channels
+        // 如果是未登录状态并且本地存储中有频道列表数据，从本地存储获取数据并保存
+        if (!this.user && getItem('TOUTIAO_CHANNELS')) {
+          this.channels = getItem('TOUTIAO_CHANNELS')
+        }
       } catch (error) {
         this.$toast('获取用户频道失败！')
       }
