@@ -69,7 +69,7 @@
 import { login, sendSms } from '@/api/user'
 import { mapMutations } from 'vuex'
 export default {
-  name: 'LoginPage',
+  name: 'LoginIndex',
   components: {},
   props: {},
   data () {

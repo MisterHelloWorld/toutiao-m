@@ -11,6 +11,14 @@ const routes = [
     // 路由懒加载
     component: () => import('@/views/login')
   },
+  // 搜索页面
+  {
+    path: '/search',
+    name: 'Search',
+    // 路由懒加载
+    component: () => import('@/views/search')
+  },
+  // 布局页面
   {
     path: '/',
     name: 'Layout',

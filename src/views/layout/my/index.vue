@@ -103,6 +103,7 @@ export default {
         this.userInfo = data.data
       } catch (error) {
         this.$toast('用户身份失效，请重新登录！')
+        this.$router.push('/login')
       }
     }
   },
