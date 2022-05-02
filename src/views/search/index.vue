@@ -74,10 +74,6 @@ export default {
     },
     // 历史记录数据列表发生变化时触发
     searchHistories (newValue) {
-      // 当搜索输入框为空的时候，不存储到本地存储
-      if (this.searchText === '') {
-        return
-      }
       // 存储到本地存储
       setItem('TOUTIAO_SEARCH_HISTORIES', newValue)
     }
@@ -105,11 +101,11 @@ export default {
     onCancel () {
       this.$router.back()
     },
-    // BUG：点击历史记录当前项并删除
+    // 点击历史记录当前项并删除
     delHistoryItem (index) {
       this.searchHistories.splice(index, 1)
     },
-    // BUG：删除全部历史记录
+    // 删除全部历史记录
     delAllHistories () {
       // 将所有历史记录重新赋值为空数组
       this.searchHistories = []

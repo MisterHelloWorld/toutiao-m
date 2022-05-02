@@ -156,7 +156,7 @@ export default {
             // 发起删除频道的请求，在服务器端删除频道
             await deleteUserChannel(myChannel.id)
           } catch (error) {
-            this.$toast('添加频道失败！')
+            this.$toast('删除频道失败！')
           }
         } else {
           // 如果是未登录状态，把用户频道列表数据本地存储

@@ -54,7 +54,7 @@ export default {
     async onLoad () {
       // 输入框里面没有内容时，提示为空
       if (this.searchText === '') {
-        this.$toast.fail('搜索输入为空')
+        this.$toast('搜索输入为空')
         this.finished = true
         return (this.SearchResults = [])
       }

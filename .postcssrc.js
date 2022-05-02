@@ -7,6 +7,8 @@ module.exports = {
         return file.indexOf("vant") !== -1 ? 37.5 : 75; // rootValue 的值一般是 设计稿  1/10
       },
       propList: ["*"],
+      // 配置不要转换的样式资源
+      exclude: "github-markdown",
     },
   },
 };

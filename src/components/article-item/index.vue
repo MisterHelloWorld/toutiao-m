@@ -1,6 +1,9 @@
 // TODO:文章列表项组件
 <template>
-  <van-cell class="article-item">
+  <van-cell
+    class="article-item"
+    :to="{ name: 'Article', params: { articleId: article.art_id } }"
+  >
     <!-- TAG：文章列表项左侧插槽 -->
     <div slot="title" class="title van-multi-ellipsis--l2">
       {{ article.title }}

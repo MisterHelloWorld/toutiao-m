@@ -18,6 +18,15 @@ const routes = [
     // 路由懒加载
     component: () => import('@/views/search')
   },
+  // 文章详情页面
+  {
+    path: '/article/:articleId',
+    name: 'Article',
+    // 路由懒加载
+    component: () => import('@/views/article'),
+    // 将路由动态参数映射到组件的props中
+    props: true
+  },
   // 布局页面
   {
     path: '/',
