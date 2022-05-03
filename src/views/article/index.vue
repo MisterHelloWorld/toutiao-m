@@ -41,7 +41,7 @@
             :isFollowed.sync="article.is_followed"
           ></FollowUser>
         </van-cell>
-        <!-- 文章内容 -->
+        <!-- TAG：文章内容 -->
         <div
           ref="article-content"
           class="article-content markdown-body"
@@ -53,9 +53,15 @@
           :commentsCount.sync="commentsCount"
           :artId="article.art_id"
         ></CommentList>
-        <!-- 底部区域 -->
+        <!-- TAG：底部区域 -->
         <div class="article-bottom">
-          <van-button class="comment-btn" type="default" round size="small"
+          <!-- 写评论 -->
+          <van-button
+            @click="isPostShow = true"
+            class="comment-btn"
+            type="default"
+            round
+            size="small"
             >写评论</van-button
           >
           <!-- 评论数量 -->
@@ -72,6 +78,9 @@
           ></LikeArticle>
           <van-icon name="share" color="#777777"></van-icon>
         </div>
+
+        <!-- TAG：底部发表评论弹出层 -->
+        <van-popup v-model="isPostShow" position="bottom">123 </van-popup>
       </div>
 
       <!-- TAG：加载失败：404 -->
@@ -117,7 +126,8 @@ export default {
       // 通过字段名控制哪个盒子显示
       status: 'loading',
       // 评论数量
-      commentsCount: 0
+      commentsCount: 0,
+      isPostShow: false
     }
   },
   computed: {},

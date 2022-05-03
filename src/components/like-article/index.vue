@@ -1,9 +1,11 @@
+// TODO:文章点赞组件
 <template>
   <van-button @click="onGoodJob" :loading="goodJobLoading">
     <van-icon
       slot="icon"
       color="#777"
       :name="attitude === 1 ? 'good-job' : 'good-job-o'"
+      :style="{ color: attitude === 1 ? '#e5645f' : '' }"
     />
   </van-button>
 </template>
@@ -48,7 +50,7 @@ export default {
             // 如果为1，代表当前已点赞，需要取消点赞
             await deleteLike(this.artId)
             // 改变视图
-            this.$emit('update:attitude', 0)
+            this.$emit('update:attitude', -1)
           } else {
             // 如果为其它情况，代表当前未点赞，需要点赞
             await addLike(this.artId)
@@ -80,4 +82,8 @@ export default {
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.van-button {
+  border: none;
+}
+</style>

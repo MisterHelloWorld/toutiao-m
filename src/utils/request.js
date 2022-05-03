@@ -6,6 +6,7 @@ const request = axios.create({
   // mock 假数据
   // baseURL: 'https://mock.mengxuegu.com/mock/626bec351e3d7470073a2458/tb'
   baseURL: 'http://toutiao.itheima.net',
+  // baseURL: 'http://localhost:8000',
   // `transformResponse` 在传递给 then/catch 前，允许修改响应数据(后端返回的数据)
   transformResponse: [
     function (data) {

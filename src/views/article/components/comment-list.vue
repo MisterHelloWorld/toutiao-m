@@ -8,18 +8,22 @@
     finished-text="没有更多了"
     @load="onLoad"
   >
-    <van-cell
+    <!-- TAG：评论列表项组件 -->
+    <CommentItem
       v-for="(comment, index) in comments"
       :key="index"
-      :title="comment.content"
-    ></van-cell>
+      :comment="comment"
+      :LikeCount.sync="comment.like_count"
+      :isLiking.sync="comment.is_liking"
+    ></CommentItem>
   </van-list>
 </template>
 <script>
 import { getComments } from '@/api/comment'
+import CommentItem from './comment-item.vue'
 export default {
   name: 'CommentList',
-  components: {},
+  components: { CommentItem },
   props: {
     // 当前文章的 ID
     artId: {

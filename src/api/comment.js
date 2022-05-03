@@ -9,3 +9,22 @@ export const getComments = (params) => {
     params
   })
 }
+
+// XXX：对评论或评论回复点赞请求
+export function addCommentLike (commentId) {
+  return request({
+    method: 'POST',
+    url: '/v1_0/comment/likings',
+    data: {
+      target: commentId
+    }
+  })
+}
+
+// XXX：取消对评论或评论回复点赞请求
+export function deleteCommentLike (commentId) {
+  return request({
+    method: 'DELETE',
+    url: `/v1_0/comment/likings/${commentId}`
+  })
+}

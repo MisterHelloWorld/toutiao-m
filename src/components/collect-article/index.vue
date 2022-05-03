@@ -83,4 +83,8 @@ export default {
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.van-button {
+  border: none;
+}
+</style>
