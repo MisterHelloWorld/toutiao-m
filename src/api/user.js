@@ -46,3 +46,20 @@ export const deleteFollow = (userId) => {
     url: `/v1_0/user/followings/${userId}`
   })
 }
+
+// XXX：获取用户个人资料请求
+export const getUserProfile = (target) => {
+  return request({
+    method: 'GET',
+    url: '/v1_0/user/profile'
+  })
+}
+
+// XXX：更新用户个人资料请求
+export const updateUserProfile = (data) => {
+  return request({
+    method: 'PATCH',
+    url: '/v1_0/user/profile',
+    data
+  })
+}

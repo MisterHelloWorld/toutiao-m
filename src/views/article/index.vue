@@ -119,7 +119,6 @@
 
 <script>
 import { getArticleById } from '@/api/article'
-import { mapState } from 'vuex'
 // 引入图片预览方法
 import { ImagePreview } from 'vant'
 import FollowUser from '@/components/follow-user/index.vue'
@@ -165,10 +164,6 @@ export default {
       // 评论回复的弹出层是否显示
       isReplyShow: false
     }
-  },
-  computed: {
-    // 映射vuex中保存的评论项数据
-    ...mapState(['comment'])
   },
   created () {
     this.getArticleById()

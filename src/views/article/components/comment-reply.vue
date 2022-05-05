@@ -11,17 +11,24 @@
       <van-icon slot="left" name="cross" @click="$emit('close')" />
     </van-nav-bar>
 
-    <!-- TAG：当前评论项（复用：评论列表项组件） -->
-    <CommentItem :isReplyButtonShow="false" :comment="comment"></CommentItem>
-    <van-cell title="全部回复"></van-cell>
+    <div class="scroll-wrap">
+      <!-- TAG：当前评论项（复用：评论列表项组件） -->
+      <CommentItem
+        :LikeCount.sync="comment.like_count"
+        :isLiking.sync="comment.is_liking"
+        :isReplyButtonShow="false"
+        :comment="comment"
+      ></CommentItem>
+      <van-cell title="全部回复"></van-cell>
 
-    <!-- TAG：当前评论项的评论回复列表（复用：评论列表组件） -->
-    <CommentList
-      :isReplyButtonShow="false"
-      type="c"
-      :source="comment.com_id"
-      :key="data"
-    ></CommentList>
+      <!-- TAG：当前评论项的评论回复列表（复用：评论列表组件） -->
+      <CommentList
+        :isReplyButtonShow="false"
+        type="c"
+        :source="comment.com_id"
+        :key="data"
+      ></CommentList>
+    </div>
 
     <!-- TAG：写评论 -->
     <div class="reply-bottom">
@@ -79,7 +86,7 @@ export default {
 <style scoped lang="less">
 .scroll-wrap {
   position: fixed;
-  top: 92px;
+  top: 192px;
   left: 0;
   right: 0;
   bottom: 88px;

@@ -1,3 +1,4 @@
+<!-- NOTES:简单功能，暂不实现 -->
 <template>
   <div class="qa-container">问答</div>
 </template>

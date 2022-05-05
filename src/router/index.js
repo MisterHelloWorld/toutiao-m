@@ -27,6 +27,11 @@ const routes = [
     // 将路由动态参数映射到组件的props中
     props: true
   },
+  {
+    path: '/user/profile',
+    name: 'Userprofile',
+    component: () => import('@/views/user-profile')
+  },
   // 布局页面
   {
     path: '/',
@@ -43,17 +48,18 @@ const routes = [
         path: '/my',
         name: 'My',
         component: () => import('@/views/layout/my')
-      },
-      {
-        path: '/qa',
-        name: 'Qa',
-        component: () => import('@/views/layout/qa')
-      },
-      {
-        path: '/video',
-        name: 'Video',
-        component: () => import('@/views/layout/video')
       }
+      // NOTES:简单功能，暂不实现
+      // {
+      //   path: '/qa',
+      //   name: 'Qa',
+      //   component: () => import('@/views/layout/qa')
+      // },
+      // {
+      //   path: '/video',
+      //   name: 'Video',
+      //   component: () => import('@/views/layout/video')
+      // }
     ]
   }
 ]

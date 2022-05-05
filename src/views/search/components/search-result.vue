@@ -13,6 +13,7 @@
         v-for="SearchResult in SearchResults"
         :key="SearchResult.art_id"
         :title="SearchResult.title"
+        :to="{ name: 'Article', params: { articleId: SearchResult.art_id } }"
       />
     </van-list>
   </div>
