@@ -50,8 +50,10 @@
         <van-divider>正文结束</van-divider>
         <!-- TAG：评论列表组件 -->
         <CommentList
+          @open="open"
           :commentsCount.sync="commentsCount"
-          :artId="article.art_id"
+          :source="article.art_id"
+          :key="num"
         ></CommentList>
         <!-- TAG：底部区域 -->
         <div class="article-bottom">
@@ -79,8 +81,14 @@
           <van-icon name="share" color="#777777"></van-icon>
         </div>
 
-        <!-- TAG：底部发表评论弹出层 -->
-        <van-popup v-model="isPostShow" position="bottom">123 </van-popup>
+        <!-- TAG：底部发表文章评论弹出层 -->
+        <van-popup v-model="isPostShow" position="bottom">
+          <!-- TAG：发表文章评论组件 -->
+          <CommentPost
+            @postSuccess="postSuccess"
+            :target="article.art_id"
+          ></CommentPost>
+        </van-popup>
       </div>
 
       <!-- TAG：加载失败：404 -->
@@ -98,25 +106,48 @@
         >
       </div>
     </div>
+    <!-- TAG：点击回复按钮的弹出层 -->
+    <van-popup v-model="isReplyShow" style="height: 93%" position="bottom">
+      <!-- TAG：评论回复内容组件 -->
+      <CommentReply
+        @close="isReplyShow = false"
+        v-if="isReplyShow"
+      ></CommentReply>
+    </van-popup>
   </div>
 </template>
 
 <script>
 import { getArticleById } from '@/api/article'
+import { mapState } from 'vuex'
 // 引入图片预览方法
 import { ImagePreview } from 'vant'
 import FollowUser from '@/components/follow-user/index.vue'
 import CollectArticle from '@/components/collect-article/index.vue'
 import CommentList from './components/comment-list.vue'
 import LikeArticle from '@/components/like-article/index.vue'
+import CommentPost from './components/comment-post.vue'
+import CommentReply from './components/comment-reply.vue'
 export default {
   name: 'ArticleIndex',
-  components: { FollowUser, CollectArticle, CommentList, LikeArticle },
+  components: {
+    FollowUser,
+    CollectArticle,
+    CommentList,
+    LikeArticle,
+    CommentPost,
+    CommentReply
+  },
   props: {
     // 文章对应ID（使用props解耦获取的动态路由数据）
     articleId: {
       type: [Number, String],
       required: true
+    }
+  },
+  provide () {
+    return {
+      articleId: this.articleId
     }
   },
   data () {
@@ -127,11 +158,18 @@ export default {
       status: 'loading',
       // 评论数量
       commentsCount: 0,
-      isPostShow: false
+      // 发表文章评论弹出层是否显示
+      isPostShow: false,
+      // 评论列表组件绑定的key值，用于改变该key值，强制刷新组件
+      num: 1,
+      // 评论回复的弹出层是否显示
+      isReplyShow: false
     }
   },
-  computed: {},
-  watch: {},
+  computed: {
+    // 映射vuex中保存的评论项数据
+    ...mapState(['comment'])
+  },
   created () {
     this.getArticleById()
   },
@@ -186,6 +224,17 @@ export default {
           })
         })
       })
+    },
+    // 点击发表文章评论后触发
+    postSuccess () {
+      // 关闭发表文章评论的弹出层
+      this.isPostShow = false
+      // 改变num值，强制更新评论列表组件
+      this.num++
+    },
+    // 点击回复评论时弹出评论回复内容组件
+    open () {
+      this.isReplyShow = true
     }
   }
 }

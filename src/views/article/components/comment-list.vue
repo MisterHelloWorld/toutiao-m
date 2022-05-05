@@ -1,4 +1,4 @@
-// TODO:评论列表组件
+// TODO:评论列表组件或评论回复组件
 <template>
   <van-list
     v-model="loading"
@@ -10,11 +10,13 @@
   >
     <!-- TAG：评论列表项组件 -->
     <CommentItem
+      :isReplyButtonShow="isReplyButtonShow"
       v-for="(comment, index) in comments"
       :key="index"
       :comment="comment"
       :LikeCount.sync="comment.like_count"
       :isLiking.sync="comment.is_liking"
+      v-on="$listeners"
     ></CommentItem>
   </van-list>
 </template>
@@ -25,15 +27,25 @@ export default {
   name: 'CommentList',
   components: { CommentItem },
   props: {
-    // 当前文章的 ID
-    artId: {
+    // 当前文章的 ID 或当前评论项的ID
+    source: {
       type: [Number, String, Object],
       required: true
     },
     // 当前文章评论数量
     commentsCount: {
-      type: Number,
-      required: true
+      type: Number
+      // required: true
+    },
+    type: {
+      type: String,
+      default: 'a',
+      validator (value) {
+        return ['a', 'c'].indexOf(value) !== -1
+      }
+    },
+    isReplyButtonShow: {
+      default: true
     }
   },
   data () {
@@ -51,6 +63,8 @@ export default {
     }
   },
   created () {
+    // 手动调用触底事件，禁止自动触底
+    this.loading = true
     // 初始化立即加载一次列表触底事件
     this.onLoad()
   },
@@ -59,8 +73,8 @@ export default {
       try {
         // 1.请求获取数据，并解构
         const { data } = await getComments({
-          type: 'a',
-          source: this.artId,
+          type: this.type,
+          source: this.source,
           offset: this.offset,
           limit: this.limit
         })

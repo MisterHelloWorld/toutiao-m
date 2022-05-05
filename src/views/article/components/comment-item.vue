@@ -31,7 +31,12 @@
         <span class="comment-pubdate">{{
           comment.pubdate | relativeTime
         }}</span>
-        <van-button class="reply-btn" round
+        <!-- 自定义回复按钮 -->
+        <van-button
+          v-show="isReplyButtonShow"
+          class="reply-btn"
+          round
+          @click="reply"
           >回复 {{ comment.reply_count }}</van-button
         >
       </div>
@@ -52,17 +57,23 @@ export default {
     },
     // 当前评论项点赞数量
     LikeCount: {
-      type: Number,
-      required: true
+      type: Number
+      // required: true
     },
     // 当前评论项是否点赞
     isLiking: {
+      type: Boolean
+      // required: true
+    },
+    // 外部可自定义回复按钮是否显示隐藏
+    isReplyButtonShow: {
       type: Boolean,
-      required: true
+      default: true
     }
   },
   data () {
     return {
+      // 评论点赞的loading加载状态
       commentLoading: false
     }
   },
@@ -111,6 +122,13 @@ export default {
       }
       // 无论成功还是失败，都要关闭loading加载
       this.commentLoading = false
+    },
+    // 点击对评论回复时触发
+    reply () {
+      // this.$emit('reply', this.comment)
+      this.$store.commit('setComment', this.comment)
+      // 打开评论回复弹出层
+      this.$emit('open')
     }
   }
 }

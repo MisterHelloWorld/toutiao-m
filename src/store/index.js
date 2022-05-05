@@ -7,13 +7,22 @@ Vue.use(Vuex)
 const TOUTIAO_KEY = 'TOUTIAO_USER'
 export default new Vuex.Store({
   state: {
-    user: getItem(TOUTIAO_KEY)
+    // 保存用户的token值（该值是持久化的）
+    user: getItem(TOUTIAO_KEY),
+    // 当前评论项（单独一项）点击回复时保存的评论项数据
+    comment: null
   },
   getters: {},
   mutations: {
     setUser (state, payload) {
       state.user = payload
       setItem(TOUTIAO_KEY, state.user)
+    },
+    setComment (state, payload) {
+      state.comment = payload
+    },
+    addCommentReplyCount (state) {
+      state.comment.reply_count++
     }
   },
   actions: {},

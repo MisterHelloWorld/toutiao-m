@@ -28,3 +28,12 @@ export function deleteCommentLike (commentId) {
     url: `/v1_0/comment/likings/${commentId}`
   })
 }
+
+// XXX：发布文章评论或评论回复请求
+export const addComment = (data) => {
+  return request({
+    method: 'POST',
+    url: '/v1_0/comments',
+    data
+  })
+}
