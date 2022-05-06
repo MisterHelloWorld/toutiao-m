@@ -48,6 +48,11 @@ export default {
   mounted () {},
   methods: {
     async onConfirm () {
+      this.$toast.loading({
+        message: '保存中...',
+        forbidClick: true, // 禁止背景点击
+        duration: 0 // 持续展示
+      })
       try {
         if (this.message.length === 0) {
           return this.$toast('昵称不能为空')
@@ -58,8 +63,9 @@ export default {
         // 更新视图
         this.$emit('update:name', this.message)
         this.$emit('close')
+        this.$toast.success('更新昵称成功')
       } catch (error) {
-        this.$toast.fail('更新用户个人资料失败！')
+        this.$toast.fail('更新昵称失败')
       }
     }
   }

@@ -63,3 +63,12 @@ export const updateUserProfile = (data) => {
     data
   })
 }
+
+// XXX：更新用户头像请求（传参格式为form-data）
+export const updateUserPhoto = (data) => {
+  return request({
+    method: 'PATCH',
+    url: '/v1_0/user/photo',
+    data
+  })
+}
