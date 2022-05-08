@@ -137,7 +137,7 @@ export default {
       console.log('文件上传成功')
       // 获取文件对象
       const file = this.$refs.file.files[0]
-      // 基于文件对创建url地址
+      // 基于文件对象创建url地址
       const url = URL.createObjectURL(file)
       // 打开编辑头像的弹出层
       this.isUpdatePhotoShow = true
