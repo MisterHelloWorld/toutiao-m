@@ -20,6 +20,7 @@
         :rules="userFormRules.mobile"
         type="number"
         maxlength="11"
+        autocomplete="off"
       >
         <!-- 插槽左侧：手机字体图标 -->
         <i slot="left-icon" class="toutiao toutiao-shouji"></i>
@@ -33,6 +34,7 @@
         :rules="userFormRules.code"
         type="number"
         maxlength="6"
+        autocomplete="off"
       >
         <!-- 插槽左侧：小锁字体图标 -->
         <i slot="left-icon" class="toutiao toutiao-yanzhengma"></i>
@@ -40,7 +42,7 @@
         <van-count-down
           v-if="isCountDownShow"
           slot="button"
-          :time="1000 * 3"
+          :time="1000 * 60"
           format="ss 秒"
           @finish="isCountDownShow = false"
         />
