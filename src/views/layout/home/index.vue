@@ -75,7 +75,10 @@ export default {
       // 频道标签高亮索引
       active: 0,
       // 频道编辑弹出层是否显示
-      isChannelEditShow: false
+      isChannelEditShow: false,
+      // 保存当前滚动条位置（内容向上滚动出去的距离）
+      top: 100,
+      children: {}
     }
   },
   computed: {
@@ -111,6 +114,18 @@ export default {
     deleteChannel (index) {
       this.channels.splice(index, 1)
     }
+  },
+  // 当跳转路由后，保存滚动条位置
+  beforeRouteLeave (to, from, next) {
+    const el = document.querySelectorAll('.van-tab__pane-wrapper')[this.active]
+    console.log(typeof el)
+    this.children = el.querySelector('.article-list')
+    this.top = this.children.scrollTop
+    next()
+  },
+  // 当重新激活该组件时，还原滚动条位置
+  activated () {
+    this.children.scrollTop = this.top
   }
 }
 </script>
